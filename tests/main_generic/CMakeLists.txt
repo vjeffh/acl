@@ -35,6 +35,10 @@ if(MSVC)
 		# Exceptions are not enabled by default for ARM targets, enable them
 		target_compile_options(${PROJECT_NAME} PRIVATE /EHsc)
 	endif()
+
+	# Catch2 header contains UTF-8 characters but the header has no BOM. Force the encoding
+	# to avoid issues with non-Western locales (e.g. Japanese).
+	target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
 endif()
 
 # Throw on failure to allow us to catch them and recover
